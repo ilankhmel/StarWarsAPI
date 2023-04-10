@@ -38,8 +38,8 @@ function App() {
   
   return (
     <div className="app">
-      <Toc films={films} setCurrFilm={setCurrFilm}/>
-      <FilmDetails currFilm={currFilm} setFavorite={setFavorite}/>
+      <Toc films={films} setCurrFilm={setCurrFilm} currFilm={currFilm}/>
+      <FilmDetails currFilm={currFilm} setFavorite={setFavorite} />
     </div>
   );
 }

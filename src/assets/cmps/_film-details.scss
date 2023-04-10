@@ -1,17 +1,30 @@
 .film-details{
+    padding: 70px;
+    padding-top: 0;
+    grid-column: 2;
+    // flex: 5;
     display: flex;
-    flex-direction: column;
     gap: 20px;
+    .left{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
     h2{
         margin: 0;
+        font-size: 2.25rem;
+        line-height: 1;
+    }
+    
+    .favorite{
+        color: rgb(255, 85, 85);
     }
 
-    .top{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .favorite{
-            color: rgb(255, 85, 85);
-        }
+    .film-desc{
+        color: #B2BAC2;
+        min-width: none;
+        max-width: 90%;
+        font-size: 20px;
     }
 }
