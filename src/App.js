@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+
+import {useEffect, useState} from 'react';
 import './App.css';
+import Toc from './cmps/Toc';
+import FilmDetails from './cmps/FilmDetails';
+import { filmService } from './services/film.service';
+
 
 function App() {
+
+  const [films, setFilms] = useState(null)
+  const [currFilm, setCurrFilm] = useState(null)
+
+  useEffect(()=>{
+      getFilms()
+  },[])
+
+  const getFilms = async() => {
+    const films = await filmService.getFilms()
+    console.log(films);
+    setFilms(films)
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Toc films={films} setCurrFilm={setCurrFilm}/>
+      <FilmDetails currFilm={currFilm} />
     </div>
   );
 }
