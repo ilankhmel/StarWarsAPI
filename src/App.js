@@ -4,6 +4,7 @@ import './App.css';
 import Toc from './cmps/Toc';
 import FilmDetails from './cmps/FilmDetails';
 import { filmService } from './services/film.service';
+import { storageService } from './services/storage.service';
 
 
 function App() {
@@ -16,15 +17,29 @@ function App() {
   },[])
 
   const getFilms = async() => {
-    const films = await filmService.getFilms()
+    const films = storageService.loadFromStorage('films') || await filmService.getFilms()
     console.log(films);
     setFilms(films)
+  }
+
+  const setFavorite = (id) => {
+      const updatedFilms = films.map(film => {
+        if(film.episode_id === id){
+          film.favorite ? film.favorite = false : film.favorite = true
+        }
+        return film
+      })
+
+      setFilms(updatedFilms)
+
+      storageService.saveToStorage('films', updatedFilms)
+      
   }
   
   return (
     <div className="app">
       <Toc films={films} setCurrFilm={setCurrFilm}/>
-      <FilmDetails currFilm={currFilm} />
+      <FilmDetails currFilm={currFilm} setFavorite={setFavorite}/>
     </div>
   );
 }
