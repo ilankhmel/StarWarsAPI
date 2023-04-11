@@ -1,8 +1,5 @@
 .film-details{
-    padding: 70px;
-    padding-top: 0;
     grid-column: 2;
-    // flex: 5;
     display: flex;
     gap: 20px;
     .left{
@@ -10,21 +7,60 @@
         flex-direction: column;
         flex-wrap: wrap;
         gap: 15px;
+        .top{
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        .info{
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .body{
+            display: flex;
+            gap: 50px;
+            .film-poster{
+                width: 50%;
+                border-radius: 20px;
+                object-fit: cover;
+            }
+        }
+
     }
     h2{
         margin: 0;
         font-size: 2.25rem;
         line-height: 1;
+        margin-bottom: 15px;
+        
+        @media(max-width: 800px){  
+           
+            font-size: 26px;
+         }
     }
     
     .favorite{
+        transform: translateY(-13%);
         color: rgb(255, 85, 85);
+        cursor: pointer;
+        transition: display 2s
     }
 
     .film-desc{
-        color: #B2BAC2;
+        color: #b9c1c8;
         min-width: none;
-        max-width: 90%;
+        max-width: 60%;
         font-size: 20px;
+        
+        @media(max-width: 800px){  
+           max-width: 90%;
+           font-size: 20px;
+        }
+        @media(max-width: 560px){  
+           max-width: 90%;
+           font-size: 16px;
+        }
     }
 }
