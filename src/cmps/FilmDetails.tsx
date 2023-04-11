@@ -1,8 +1,15 @@
 import React from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { film } from '../modules/film.module';
 
-export default function FilmDetails({ currFilm, setFavorite }) {
+type Props = {    
+    currFilm: film | null,
+    setFavorite: Function,
+}
+
+
+export default function FilmDetails({ currFilm, setFavorite }:Props) {
 
 
     return (

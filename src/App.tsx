@@ -9,13 +9,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
+import { film } from './modules/film.module';
 
-
+type films = film[]
 
 function App() {
 
-  const [films, setFilms] = useState(null)
-  const [currFilm, setCurrFilm] = useState(null)
+  const [films , setFilms] = useState<films | null>(null)
+  const [currFilm, setCurrFilm] = useState<film | null>(null)
   const [poster, setPoster] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
 
@@ -27,22 +28,23 @@ function App() {
 
   useEffect(() => {
     if (films) {
-      const film = films.find(f => f.episode_id == params?.id)
+      const film = films.find(f => f?.episode_id.toString() === params?.id)
       film ? setCurrFilm(film) : setCurrFilm(films[0])
     }
   }, [params?.id, films])
 
   useEffect(() => {
-    getPoster(currFilm?.title)
+    if(currFilm) getPoster(currFilm?.title)
   }, [currFilm])
 
   const getFilms = async () => {
     const films = storageService.loadFromStorage('films') || await filmService.getFilms()
+    console.log(films);
     setFilms(films)
   }
 
-  const setFavorite = (id) => {
-    const updatedFilms = films.map(film => {
+  const setFavorite = (id:Number) => {
+    const updatedFilms = films!.map(film => {
       if (film.episode_id === id) {
         film.favorite ? film.favorite = false : film.favorite = true
       }
@@ -55,7 +57,7 @@ function App() {
 
   }
 
-  const getPoster = async (title) => {
+  const getPoster = async (title:String) => {
     const poster = await filmService.getFilmsPoster(title)
     setPoster(poster)
   }

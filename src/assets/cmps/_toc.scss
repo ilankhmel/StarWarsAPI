@@ -38,6 +38,7 @@
         padding: 10px;
         padding-top: 20px;
         box-sizing: border-box;
+        box-shadow: rgba(0, 0, 0, 0.883) 3px -2px 15px 2px;
         &.open{
             transition: transform .6s;
             transform: translateX(0%);
