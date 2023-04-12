@@ -63,7 +63,10 @@ body {
         height: 100vh;
         position: absolute;
         background-image: linear-gradient(to right, #000, #00000023);
-
+        
+        @media(max-width: 520px){  
+            background-image: linear-gradient(-170deg , #000, #00000023);
+         }
     }
 
     .film-poster {
