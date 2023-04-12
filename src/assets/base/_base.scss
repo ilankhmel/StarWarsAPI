@@ -41,6 +41,10 @@ body {
             gap: 20px;
         }
 
+        @media(max-height: 520px){  
+            padding-top: 25px;
+         }
+
         .hamburger-btn {
             z-index: 3;
             display: none;
