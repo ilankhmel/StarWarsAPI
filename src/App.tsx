@@ -17,7 +17,7 @@ function App() {
 
   const [films , setFilms] = useState<films | null>(null)
   const [currFilm, setCurrFilm] = useState<film | null>(null)
-  const [poster, setPoster] = useState(null)
+  const [poster, setPoster] = useState(undefined)
   const [isOpen, setIsOpen] = useState(false)
 
   const params = useParams()
