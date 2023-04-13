@@ -1,15 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import '../src/assets/style/main.scss';
-import App from './App';
-import { HashRouter as Router } from 'react-router-dom';
-import { Route, Routes } from 'react-router-dom'
-const root = ReactDOM.createRoot(document.getElementById('root') as Element);
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "../src/assets/style/main.scss";
+import App from "./App";
+import { HashRouter as Router } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+const root = ReactDOM.createRoot(document.getElementById("root") as Element);
 root.render(
   // <React.StrictMode>
   <Router>
     <Routes>
-      <Route path='/:id?' element={<App />}></Route>
+      <Route path="/:id?" element={<App />}></Route>
     </Routes>
   </Router>
   // </React.StrictMode>

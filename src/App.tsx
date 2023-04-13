@@ -1,84 +1,113 @@
+import { useEffect, useState } from "react";
+import Toc from "./cmps/Toc";
+import FilmDetails from "./cmps/FilmDetails";
+import { filmService } from "./services/film.service";
+import { storageService } from "./services/storage.service";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useParams } from "react-router-dom";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+import { film } from "./modules/film.module";
+import axios from "axios";
 
-import { useEffect, useState } from 'react';
-import Toc from './cmps/Toc';
-import FilmDetails from './cmps/FilmDetails';
-import { filmService } from './services/film.service';
-import { storageService } from './services/storage.service';
-import MenuIcon from '@mui/icons-material/Menu';
-import { useParams } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
-import { film } from './modules/film.module';
-
-type films = film[]
+type films = film[];
 
 function App() {
+  const [films, setFilms] = useState<films | null>(null);
+  const [currFilm, setCurrFilm] = useState<film | null>(null);
+  const [poster, setPoster] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [error, setError] = useState<String | null>(null);
 
-  const [films , setFilms] = useState<films | null>(null)
-  const [currFilm, setCurrFilm] = useState<film | null>(null)
-  const [poster, setPoster] = useState('')
-  const [isOpen, setIsOpen] = useState(false)
-
-  const params = useParams()
+  const params = useParams();
 
   useEffect(() => {
-    getFilms()
-  }, [])
+    getFilms();
+  }, []);
 
   useEffect(() => {
     if (films) {
-      const film = films.find(f => f?.episode_id.toString() === params?.id)
-      film ? setCurrFilm(film) : setCurrFilm(films[0])
+      const film = films.find((f) => f?.episode_id.toString() === params?.id);
+      film ? setCurrFilm(film) : setCurrFilm(films[0]);
     }
-  }, [params?.id, films])
+  }, [params?.id, films]);
 
   useEffect(() => {
-    if(currFilm) getPoster(currFilm?.title)
-  }, [currFilm])
+    if (currFilm) getPoster(currFilm?.title);
+  }, [currFilm]);
 
   const getFilms = async () => {
-    const films = storageService.loadFromStorage('films') || await filmService.getFilms()
-    console.log(films);
-    setFilms(films)
-  }
-
-  const setFavorite = (id:Number) => {
-    const updatedFilms = films!.map(film => {
-      if (film.episode_id === id) {
-        film.favorite ? film.favorite = false : film.favorite = true
+    try {
+      const films =
+        storageService.loadFromStorage("films") ||
+        (await filmService.getFilms());
+      setFilms(films);
+    } catch (err) {
+      console.log(err);
+      if (axios.isAxiosError(err)) {
+        setError(err?.message);
       }
-      return film
-    })
+    }
+  };
 
-    setFilms(updatedFilms)
+  const setFavorite = (id: Number) => {
+    const updatedFilms = films!.map((film) => {
+      if (film.episode_id === id) {
+        film.favorite ? (film.favorite = false) : (film.favorite = true);
+      }
+      return film;
+    });
 
-    storageService.saveToStorage('films', updatedFilms)
+    setFilms(updatedFilms);
 
-  }
+    storageService.saveToStorage("films", updatedFilms);
+  };
 
-  const getPoster = async (title:String) => {
-    const poster = await filmService.getFilmsPoster(title)
-    setPoster(poster)
-  }
+  const getPoster = async (title: String) => {
+    try {
+      const poster = await filmService.getFilmsPoster(title);
+      if (poster) setPoster(poster);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="app">
-      {films ?
+      {films ? (
         <>
           <div className="gradient"></div>
-          {poster && <img className='film-poster' src={poster} alt="" />}
-          {isOpen && <div className="menu-overlay" onClick={() => setIsOpen(!isOpen)}></div>}
+          {poster && <img className="film-poster" src={poster} alt="" />}
+          {isOpen && (
+            <div
+              className="menu-overlay"
+              onClick={() => setIsOpen(!isOpen)}
+            ></div>
+          )}
           <div className="table">
-            <div className='hamburger-btn' onClick={() => setIsOpen(!isOpen)}><MenuIcon /></div>
-            <Toc films={films} currFilm={currFilm} isOpen={isOpen} setIsOpen={setIsOpen} />
+            <div className="hamburger-btn" onClick={() => setIsOpen(!isOpen)}>
+              <MenuIcon />
+            </div>
+            <Toc
+              films={films}
+              currFilm={currFilm}
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+            />
             <FilmDetails currFilm={currFilm} setFavorite={setFavorite} />
           </div>
         </>
-        :
-        <Box className="spinner" sx={{ display: 'flex' }}>
-          <CircularProgress />
-        </Box>
-      }
+      ) : (
+        <>
+          {!error && (
+            <Box className="loader" sx={{ display: "flex" }}>
+              <CircularProgress />
+            </Box>
+          )}
+
+          {error && <div className="error">Error: {error}</div>}
+        </>
+      )}
     </div>
   );
 }
