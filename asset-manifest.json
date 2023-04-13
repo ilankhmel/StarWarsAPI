@@ -1,15 +1,14 @@
 {
   "files": {
-    "main.css": "/StarWarsAPI/static/css/main.3d510905.css",
-    "main.js": "/StarWarsAPI/static/js/main.3b9c98d1.js",
-    "static/js/787.28cb0dcd.chunk.js": "/StarWarsAPI/static/js/787.28cb0dcd.chunk.js",
+    "main.css": "/StarWarsAPI/static/css/main.d49e61e0.css",
+    "main.js": "/StarWarsAPI/static/js/main.f8e9da3b.js",
+    "static/media/wallpaper-fallback.jpg": "/StarWarsAPI/static/media/wallpaper-fallback.2e51acefb32990e6e54b.jpg",
     "index.html": "/StarWarsAPI/index.html",
-    "main.3d510905.css.map": "/StarWarsAPI/static/css/main.3d510905.css.map",
-    "main.3b9c98d1.js.map": "/StarWarsAPI/static/js/main.3b9c98d1.js.map",
-    "787.28cb0dcd.chunk.js.map": "/StarWarsAPI/static/js/787.28cb0dcd.chunk.js.map"
+    "main.d49e61e0.css.map": "/StarWarsAPI/static/css/main.d49e61e0.css.map",
+    "main.f8e9da3b.js.map": "/StarWarsAPI/static/js/main.f8e9da3b.js.map"
   },
   "entrypoints": [
-    "static/css/main.3d510905.css",
-    "static/js/main.3b9c98d1.js"
+    "static/css/main.d49e61e0.css",
+    "static/js/main.f8e9da3b.js"
   ]
 }
