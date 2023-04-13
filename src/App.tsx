@@ -1,6 +1,5 @@
 
 import { useEffect, useState } from 'react';
-import './App.css';
 import Toc from './cmps/Toc';
 import FilmDetails from './cmps/FilmDetails';
 import { filmService } from './services/film.service';
@@ -17,7 +16,7 @@ function App() {
 
   const [films , setFilms] = useState<films | null>(null)
   const [currFilm, setCurrFilm] = useState<film | null>(null)
-  const [poster, setPoster] = useState(undefined)
+  const [poster, setPoster] = useState('')
   const [isOpen, setIsOpen] = useState(false)
 
   const params = useParams()

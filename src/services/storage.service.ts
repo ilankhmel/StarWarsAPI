@@ -1,12 +1,12 @@
 
-function saveToStorage(key, val) {
+function saveToStorage(key:string, val:Object | Object[]) {
     const str = JSON.stringify(val)
     localStorage.setItem(key, str)
 }
 
-function loadFromStorage(key) {
+function loadFromStorage(key:string) {
     const str = localStorage.getItem(key)
-    return JSON.parse(str)
+    if (str) return JSON.parse(str)
 }
 
 export const storageService = {
