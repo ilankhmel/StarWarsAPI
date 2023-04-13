@@ -7,6 +7,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
+import wallpaperFallback from "../src/assets/imgs/wallpaper-fallback.jpg";
 import { film } from "./modules/film.module";
 import axios from "axios";
 
@@ -66,8 +67,9 @@ function App() {
   const getPoster = async (title: String) => {
     try {
       const poster = await filmService.getFilmsPoster(title);
-      if (poster) setPoster(poster);
+      setPoster(poster);
     } catch (err) {
+      //fallback wallpaper is shown
       console.log(err);
     }
   };
@@ -77,7 +79,13 @@ function App() {
       {films ? (
         <>
           <div className="gradient"></div>
-          {poster && <img className="film-poster" src={poster} alt="" />}
+
+          <img
+            className="film-poster"
+            src={poster || wallpaperFallback}
+            alt=""
+          />
+
           {isOpen && (
             <div
               className="menu-overlay"
